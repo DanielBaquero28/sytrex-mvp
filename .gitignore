@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.egg
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Environment & Dependency files
+.env
+.venv/
+venv/
+env/
+ENV/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebooks (if any)
+.ipynb_checkpoints
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Mypy
+.mypy_cache/
+
+# FastAPI or Uvicorn cache
+*.sqlite3
+
+# Coverage reports
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.cache
+
+# Unit test / coverage reports
+nosetests.xml
+test_*.log
+.tox/
+.pytest_cache/
+tests/__pycache__/
+
+# Docker
+**/data/
+docker-compose.override.yml
+*.pid
+
+# Ignore database dump or temp data
+*.db
+*.sql
+*.bak
+
+# Ignore zip files and compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Ignore builds/dist
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Ignore IDE files (PyCharm, etc.)
+.idea/
+*.iml

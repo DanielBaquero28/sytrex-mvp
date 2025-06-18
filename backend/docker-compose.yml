@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:15
+    container_name: sytrex_postgres
+    environment:
+      POSTGRES_DB: sytrex_db
+      POSTGRES_USER: sytrex_user
+      POSTGRES_PASSWORD: sytrex_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
