@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 # External service URLs
 PARSE_EMAIL_URL = "http://localhost:8002/parse-email"
-CLASSIFY_EMAIL_URL = "http://localhost:8001/classify"
+CLASSIFY_EMAIL_URL = "http://localhost:8004/classify"
 TEXT_EXTRACT_URL = "http://localhost:8003/extract-text"
 STORE_EMAIL_URL = "http://localhost:8001/store"
 
@@ -18,7 +18,7 @@ def process_email_pipeline(base64_email: str) -> Dict[str, Any]:
     # 1. Parse Email
     try:
         logger.info("Parsing email...")
-        parse_response = requests.post(PARSE_EMAIL_URL, json={"base64_file": base64_email})
+        parse_response = requests.post(PARSE_EMAIL_URL, json={"file_type": "eml", "base64_file": base64_email})
         parse_response.raise_for_status()
         parsed_email = parse_response.json()
     except Exception as e:
@@ -62,7 +62,7 @@ def process_email_pipeline(base64_email: str) -> Dict[str, Any]:
         })
 
         classify_response.raise_for_status()
-        classifications_results = classify_response.json()
+        classifications_results = classify_response.json()["classification"]
     except Exception as e:
         logger.error(f"Step 3: Classification failed - {e}")
         raise Exception(f"Step 3: Classification failed - {e}")
@@ -74,14 +74,19 @@ def process_email_pipeline(base64_email: str) -> Dict[str, Any]:
             "subject": parsed_email["subject"],
             "received_at": parsed_email["received_at"],
             "body": parsed_email["body"],
+            "classifications": [
+                {"label": c["label"], "score": c["score"]}
+                for c in classifications_results
+            ],
             "attachments": [
                 {
                     "filename": a["filename"],
                     "content_type": a["content_type"]
                 } for a in attachments
-            ],
-            "classifications": classifications_results
+            ]
         }
+
+        print(f"Storage Payload: {storage_payload}")
 
         logger.info("Storing parsed email into DB...")
         store_response = requests.post(STORE_EMAIL_URL, json=storage_payload)

@@ -5,7 +5,7 @@ from typing import List
 
 from app.db.database import Base, engine
 from app.db import models
-from app.api.routes.classifier import router as classifier_router
+from app.api.routes.classifier_api import router as classifier_router
 
 Base.metadata.create_all(bind=engine)
 

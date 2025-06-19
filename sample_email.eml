@@ -1,0 +1,16 @@
+From: test@example.com
+Subject: Test Subject
+Content-Type: multipart/mixed; boundary="BOUNDARY"
+
+--BOUNDARY
+Content-Type: text/plain
+
+This is a test email body.
+
+--BOUNDARY
+Content-Disposition: attachment; filename="test.txt"
+Content-Type: text/plain
+Content-Transfer-Encoding: base64
+
+VGhpcyBpcyBhIHRlc3QgZmlsZS4=
+--BOUNDARY--
